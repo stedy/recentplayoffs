@@ -1,0 +1,13 @@
+Package: recentplayoffs
+Type: Package
+Title: Summarizes Recent Playoff Visits
+Version: 0.1.0
+Author: Zach Stednick [aut, cre]
+Maintainer: Zach Stednick <zachstednick@protonmail.com>
+Description: Aggegates data from public sources to determine which US professional sports teams have had the longest playoff droughts.
+License: GPL-3
+Encoding: UTF-8
+Imports: xml2,
+    rvest
+LazyData: true
+RoxygenNote: 6.0.1
