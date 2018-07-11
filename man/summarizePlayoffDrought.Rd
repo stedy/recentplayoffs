@@ -4,7 +4,10 @@
 \alias{summarizePlayoffDrought}
 \title{summarizePlayoffDrought}
 \usage{
-summarizePlayoffDrought()
+summarizePlayoffDrought(defunct = NULL)
+}
+\arguments{
+\item{defunct}{Should defunct teams be omitted?}
 }
 \description{
 Summarizes longest playoff drought by league for the 4 major US professional sports leagues

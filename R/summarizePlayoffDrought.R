@@ -4,7 +4,11 @@
 #' @importFrom utils head
 #' @export
 #'
-summarizePlayoffDrought <- function(){
+#' @param defunct Should defunct teams be omitted?
+summarizePlayoffDrought <- function(defunct = NULL){
+
+  defunct_teams <- c("Seattle SuperSonics", "New Jersey Nets", "Mighty Ducks of Anaheim", "Atlanta Thrashers")
+
   NFL <- getNFL()
   NFL$season <- as.numeric(as.character(NFL$season))
   NFL$League <- "NFL"
@@ -23,6 +27,9 @@ summarizePlayoffDrought <- function(){
 
   all_sports <- rbind.data.frame(NFL, MLB, NBA, NHL)
   all_sports <- all_sports[order(all_sports$season), ]
+  if(!is.null(defunct)){
+    all_sports <- subset(all_sports, !grepl(paste(defunct_teams, collapse = "|"), all_sports$Team))
+  }
   longest <- by(all_sports, all_sports["League"], head, n=1)
   return(Reduce(rbind, longest))
 }
