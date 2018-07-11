@@ -33,6 +33,6 @@ most_recent <- rbind(most_recent, c(x, temp_recent_max))
 
 most_recent <- data.frame(most_recent)
 
-names(most_recent)[1:2] <- c("Team", "season")
+names(most_recent)[1:2] <- c("Team", "Season")
 return(most_recent)
 }

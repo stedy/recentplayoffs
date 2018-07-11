@@ -22,12 +22,12 @@ for(x in 1998:2018){
   Western_conference_season_table <- subset(Western_conference_season_table, grepl("\\*", Western_conference_season_table[, 1]))
   Western_conf_teams <- unlist(strsplit(Western_conference_season_table[, 1], "\\*"))
 
-  combined_conf <- data.frame(Team = c(Eastern_conf_teams, Western_conf_teams), season = x)
+  combined_conf <- data.frame(Team = c(Eastern_conf_teams, Western_conf_teams), Season = x)
   combined_conf <- subset(combined_conf, !grepl("[0-9]\\)", combined_conf$Team))
   all_seasons <- rbind(all_seasons, combined_conf)
 }
 
-most_recent_NBA <- all_seasons[order(all_seasons$season), ]
+most_recent_NBA <- all_seasons[order(all_seasons$Season), ]
 most_recent_NBA <- by(most_recent_NBA, most_recent_NBA["Team"], tail, n=1)
 
 return(Reduce(rbind, most_recent_NBA))

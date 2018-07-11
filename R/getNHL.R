@@ -22,12 +22,12 @@ getNHL <- function(){
     Western_conf_teams <- unlist(strsplit(Western_conference_table[, 1], "\\*"))
 
     combined_conf <- data.frame(Team = c(Eastern_conf_teams, Western_conf_teams),
-                                season = x)
+                                Season = x)
     combined_conf <- subset(combined_conf, !grepl("[0-9]\\)", combined_conf$Team))
     all_seasons <- rbind(all_seasons, combined_conf)
   }
 
-  most_recent_NHL <- all_seasons[order(all_seasons), ]
+  most_recent_NHL <- all_seasons[order(all_seasons$Season), ]
   most_recent_NHL <- by(most_recent_NHL, most_recent_NHL["Team"], tail, n=1)
   return(Reduce(rbind, most_recent_NHL))
 }

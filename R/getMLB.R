@@ -41,6 +41,6 @@ for(x in MLB_teams_html_table$Team){
 
 most_recent_MLB <- data.frame(most_recent_MLB)
 
-names(most_recent_MLB)[1:2] <- c("Team", "season")
+names(most_recent_MLB)[1:2] <- c("Team", "Season")
 return(most_recent_MLB)
 }

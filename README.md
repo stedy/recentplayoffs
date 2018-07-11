@@ -2,9 +2,9 @@
 
 R package for determining how long major US professional sports teams have gone without a trip to the playoffs.
 
-Currently this results the following result:
+Currently this yields the following result:
 
-| Team | season | League |
+| Team | Season | League |
 | ---- |:------:| -----: |
 | Seattle Mariners | 2001 | MLB |
 | Sacramento Kings | 2006 | NBA |

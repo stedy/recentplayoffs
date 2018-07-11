@@ -10,23 +10,23 @@ summarizePlayoffDrought <- function(defunct = NULL){
   defunct_teams <- c("Seattle SuperSonics", "New Jersey Nets", "Mighty Ducks of Anaheim", "Atlanta Thrashers")
 
   NFL <- getNFL()
-  NFL$season <- as.numeric(as.character(NFL$season))
+  NFL$Season <- as.numeric(as.character(NFL$Season))
   NFL$League <- "NFL"
 
   MLB <- getMLB()
-  MLB$season <- as.numeric(as.character(MLB$season))
+  MLB$Season <- as.numeric(as.character(MLB$Season))
   MLB$League <- "MLB"
 
   NBA <- getNBA()
-  NBA$season <- as.numeric(as.character(NBA$season))
+  NBA$Season <- as.numeric(as.character(NBA$Season))
   NBA$League <- "NBA"
 
   NHL <- getNHL()
-  NHL$season <- as.numeric(as.character(NHL$season))
+  NHL$Season <- as.numeric(as.character(NHL$Season))
   NHL$League <- "NHL"
 
   all_sports <- rbind.data.frame(NFL, MLB, NBA, NHL)
-  all_sports <- all_sports[order(all_sports$season), ]
+  all_sports <- all_sports[order(all_sports$Season), ]
   if(!is.null(defunct)){
     all_sports <- subset(all_sports, !grepl(paste(defunct_teams, collapse = "|"), all_sports$Team))
   }
