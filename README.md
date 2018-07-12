@@ -2,7 +2,8 @@
 
 R package for determining how long major US professional sports teams have gone without a trip to the playoffs.
 
-Currently this yields the following result:
+Package has functionality to aggregate all four major leagues to show
+the team in each league with the longest playoff drought. Currently this yields the following result:
 
 | Team | Season | League |
 | ---- |:------:| -----: |
