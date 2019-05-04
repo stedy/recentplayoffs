@@ -1,6 +1,6 @@
 #' @title getNHL
 #'
-#' @description Calculates most recent playoff appearence for all NHL teams from 1998 to 2018 from the site \url{https://www.hockey-reference.com}.
+#' @description Calculates most recent playoff appearence for all NHL teams from 1998 to present from the site \url{https://www.hockey-reference.com}.
 #' Does not pull data for 2004-05 due to the NHL strike
 #'
 #' @export
@@ -8,7 +8,8 @@
 #' getNHL()
 getNHL <- function(){
   all_seasons <- c()
-  for(x in c(1998:2004, 2006:2018)){
+  current_year <- as.numeric(format(Sys.Date(), "%Y"))
+  for(x in c(1998:2004, 2006:current_year)){
     team_url <- paste0("https://www.hockey-reference.com/leagues/NHL_", as.character(x), ".html")
     team_html <- xml2::read_html(team_url)
     team_tables <- rvest::html_nodes(team_html, "table")

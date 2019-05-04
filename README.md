@@ -10,4 +10,4 @@ the team in each league with the longest playoff drought. Currently this yields 
 | Seattle Mariners | 2001 | MLB |
 | Sacramento Kings | 2006 | NBA |
 | Cleveland Browns | 2002 | NFL |
-| Carolina Hurricanes | 2009 | NHL |
+| Buffalo Sabres | 2011 | NHL |
