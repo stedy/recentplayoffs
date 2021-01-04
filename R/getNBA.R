@@ -9,7 +9,7 @@
 #' getNBA()
 getNBA <- function(){
 all_seasons <- c()
-for(x in 1998:2018){
+for(x in 1998:2020){
   team_url <- paste0("https://www.basketball-reference.com/leagues/NBA_", as.character(x), ".html")
   team_html <- xml2::read_html(team_url)
   team_html_tables <- rvest::html_nodes(team_html, "table")
