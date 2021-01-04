@@ -11,7 +11,8 @@ NFL_html <- xml2::read_html("https://en.wikipedia.org/wiki/National_Football_Lea
 NFL_html_tables <- rvest::html_nodes(NFL_html, "table")
 NFL_team_table <- rvest::html_table(NFL_html_tables[[3]], fill=T)
 names(NFL_team_table)[2] <- "Team"
-NFL_team_table <- subset(NFL_team_table, !grepl(paste(c("Football", "club"), collapse = "|"), NFL_team_table$Team))
+NFL_team_table <- subset(NFL_team_table, !grepl(paste(c("Conference", "club"), collapse = "|"), NFL_team_table$Team))
+NFL_team_table$Team <- gsub("[[A-Z]]", "", NFL_team_table$Team)
 NFL_team_table$Team <- gsub("[[:punct:]]", "", NFL_team_table$Team)
 
 most_recent <- c()
