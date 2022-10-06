@@ -14,11 +14,11 @@ getNHL <- function(){
     team_html <- xml2::read_html(team_url)
     team_tables <- rvest::html_nodes(team_html, "table")
 
-    Eastern_conference_table <- rvest::html_table(team_tables[[1]], fill=T)
+    Eastern_conference_table <- as.data.frame(rvest::html_table(team_tables[[1]], fill=T))
     Eastern_conference_table <- subset(Eastern_conference_table, grepl("\\*", Eastern_conference_table[, 1]))
     Eastern_conf_teams <- unlist(strsplit(Eastern_conference_table[, 1], "\\*"))
 
-    Western_conference_table <- rvest::html_table(team_tables[[2]], fill=T)
+    Western_conference_table <- as.data.frame(rvest::html_table(team_tables[[2]], fill=T))
     Western_conference_table <- subset(Western_conference_table, grepl("\\*", Western_conference_table[, 1]))
     Western_conf_teams <- unlist(strsplit(Western_conference_table[, 1], "\\*"))
 
