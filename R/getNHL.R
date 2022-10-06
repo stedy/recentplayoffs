@@ -8,7 +8,7 @@
 #' getNHL()
 getNHL <- function(){
   all_seasons <- c()
-  current_year <- as.numeric(format(Sys.Date(), "%Y")) - 1
+  current_year <- as.numeric(format(Sys.Date(), "%Y"))
   for(x in c(1998:2004, 2006:current_year)){
     team_url <- paste0("https://www.hockey-reference.com/leagues/NHL_", as.character(x), ".html")
     team_html <- xml2::read_html(team_url)

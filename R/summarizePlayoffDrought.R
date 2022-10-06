@@ -12,24 +12,29 @@ summarizePlayoffDrought <- function(defunct = NULL){
   NFL <- getNFL()
   NFL$Season <- as.numeric(as.character(NFL$Season))
   NFL$League <- "NFL"
+  NFL <- NFL[which(NFL$Season == min(NFL$Season)), ]
 
   MLB <- getMLB()
   MLB$Season <- as.numeric(as.character(MLB$Season))
   MLB$League <- "MLB"
-
+  MLB <- MLB[which(MLB$Season == min(MLB$Season)), ]
+  
   NBA <- getNBA()
   NBA$Season <- as.numeric(as.character(NBA$Season))
   NBA$League <- "NBA"
+  if(!is.null(defunct)){
+    NBA <- subset(NBA, !grepl(paste(defunct_teams, collapse = "|"), NBA$Team))
+  }
+  NBA <- NBA[which(NBA$Season == min(NBA$Season)), ]
 
   NHL <- getNHL()
   NHL$Season <- as.numeric(as.character(NHL$Season))
   NHL$League <- "NHL"
+  if(!is.null(defunct)){
+    NHL <- subset(NHL, !grepl(paste(defunct_teams, collapse = "|"), NHL$Team))
+  }
+  NHL <- NHL[which(NHL$Season == min(NHL$Season)), ]
 
   all_sports <- rbind.data.frame(NFL, MLB, NBA, NHL)
-  all_sports <- all_sports[order(all_sports$Season), ]
-  if(!is.null(defunct)){
-    all_sports <- subset(all_sports, !grepl(paste(defunct_teams, collapse = "|"), all_sports$Team))
-  }
-  longest <- by(all_sports, all_sports["League"], head, n=1)
-  return(Reduce(rbind, longest))
+  return(all_sports)
 }
