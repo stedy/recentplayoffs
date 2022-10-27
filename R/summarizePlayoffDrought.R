@@ -6,10 +6,14 @@
 #'
 #' @param defunct Should defunct teams be omitted?
 summarizePlayoffDrought <- function(defunct = NULL){
+  defunct_teams <- recentplayoffs_data
 
   NFL <- getNFL()
   NFL$Season <- as.numeric(as.character(NFL$Season))
   NFL$League <- "NFL"
+  if(!is.null(defunct)){
+    NFL <- subset(NFL, !grepl(paste(defunct_teams, collapse = "|"), NFL$Team))
+  }
   NFL <- NFL[which(NFL$Season == min(NFL$Season)), ]
 
   MLB <- getMLB()
