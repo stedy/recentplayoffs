@@ -6,34 +6,28 @@
 #' @examples
 #' getNFL()
 getNFL <- function(){
+  all_seasons <- c()
+  current_year <- as.numeric(format(Sys.Date(), "%Y"))
+  matches <- c()
+  for(x in c(1998:current_year)){
+    team_url <- paste0("https://www.pro-football-reference.com/years/", as.character(x), "/")
+    team_html <- xml2::read_html(team_url)
+    team_tables <- rvest::html_nodes(team_html, "table")
 
-NFL_html <- xml2::read_html("https://en.wikipedia.org/wiki/National_Football_League")
-NFL_html_tables <- rvest::html_nodes(NFL_html, "table")
-NFL_team_table <- rvest::html_table(NFL_html_tables[[4]], fill=T)
-names(NFL_team_table)[2] <- "Team"
-NFL_team_table <- subset(NFL_team_table, !grepl(paste(c("Conference", "club"), collapse = "|"), NFL_team_table$Team))
-NFL_team_table$Team <- gsub("[[A-Z]]", "", NFL_team_table$Team)
-NFL_team_table$Team <- gsub("[[:punct:]]", "", NFL_team_table$Team)
+    AFC_table <- as.data.frame(rvest::html_table(team_tables[[1]], fill=T))
+    AFC_table <- subset(AFC_table, grepl("\\*|\\+", AFC_table[, 1]))
+    AFC_teams <- unlist(strsplit(AFC_table[, 1], "\\*|\\+"))
 
-most_recent <- c()
-for(x in NFL_team_table$Team[1:32]) {
-  slug <- paste0("https://en.wikipedia.org/wiki/", gsub(" ", "_", x))
+    NFC_table <- as.data.frame(rvest::html_table(team_tables[[2]], fill=T))
+    NFC_table <- subset(NFC_table, grepl("\\*|\\+", NFC_table[, 1]))
+    NFC_teams <- unlist(strsplit(NFC_table[, 1], "\\*|\\+"))
 
-team_html <- xml2::read_html(slug)
-team_tables <- rvest::html_nodes(team_html, "table")
-team_table1 <- as.data.frame(rvest::html_table(team_tables[[1]], fill = T))
+    combined_conf <- data.frame(Team = c(AFC_teams, NFC_teams),
+                                Season = x)
+    all_seasons <- rbind(all_seasons, combined_conf)
+  }
 
-if(nrow(team_table1) <2){
-  team_table1 <- rvest::html_table(team_tables[[2]], fill = T)
-}
-
-years <- team_table1[grep("NFL", team_table1[, 1]), 1]
-temp_recent_max <- max(as.numeric(unlist(strsplit(years, ", "))), na.rm = T)
-most_recent <- rbind(most_recent, c(x, temp_recent_max))
-}
-
-most_recent <- data.frame(most_recent)
-
-names(most_recent)[1:2] <- c("Team", "Season")
-return(most_recent)
+  most_recent_NFL <- all_seasons[order(all_seasons$Season), ]
+  most_recent_NFL <- by(most_recent_NFL, most_recent_NFL["Team"], tail, n=1)
+  return(Reduce(rbind, most_recent_NFL))
 }
