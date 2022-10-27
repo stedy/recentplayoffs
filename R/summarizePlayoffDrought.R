@@ -7,9 +7,6 @@
 #' @param defunct Should defunct teams be omitted?
 summarizePlayoffDrought <- function(defunct = NULL){
 
-  defunct_teams <- c("Seattle SuperSonics", "New Jersey Nets", "Mighty Ducks of Anaheim", "Atlanta Thrashers",
-                     "St. Louis Rams", "Washington Redskins", "San Diego Chargers", "Oakland Raiders")
-
   NFL <- getNFL()
   NFL$Season <- as.numeric(as.character(NFL$Season))
   NFL$League <- "NFL"
