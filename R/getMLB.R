@@ -36,7 +36,7 @@ for(x in MLB_teams_html_table$Team){
   for(y in temp_results$value){
     temp_values <- c(temp_values, substring(y, seq(1, nchar(y), 4), seq(4, nchar(y), 4)))
   }
-  most_recent_MLB <- rbind(most_recent_MLB, c(x, max(as.numeric(temp_values), na.rm=T)))
+  most_recent_MLB <- rbind(most_recent_MLB, c(x, max(suppressWarnings(as.numeric(temp_values)), na.rm=T)))
 }
 
 most_recent_MLB <- data.frame(most_recent_MLB)

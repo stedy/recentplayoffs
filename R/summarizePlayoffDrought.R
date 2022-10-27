@@ -7,7 +7,8 @@
 #' @param defunct Should defunct teams be omitted?
 summarizePlayoffDrought <- function(defunct = NULL){
 
-  defunct_teams <- c("Seattle SuperSonics", "New Jersey Nets", "Mighty Ducks of Anaheim", "Atlanta Thrashers")
+  defunct_teams <- c("Seattle SuperSonics", "New Jersey Nets", "Mighty Ducks of Anaheim", "Atlanta Thrashers",
+                     "St. Louis Rams", "Washington Redskins", "San Diego Chargers", "Oakland Raiders")
 
   NFL <- getNFL()
   NFL$Season <- as.numeric(as.character(NFL$Season))
@@ -18,7 +19,7 @@ summarizePlayoffDrought <- function(defunct = NULL){
   MLB$Season <- as.numeric(as.character(MLB$Season))
   MLB$League <- "MLB"
   MLB <- MLB[which(MLB$Season == min(MLB$Season)), ]
-  
+
   NBA <- getNBA()
   NBA$Season <- as.numeric(as.character(NBA$Season))
   NBA$League <- "NBA"
